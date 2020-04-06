@@ -1,0 +1,84 @@
+@model List<Game>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Dashboard</title>
+    <style>
+        .contentTable > h3{
+            font-weight: lighter;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-6 contentTable my-3">
+                <h3>Hello, @ViewBag.user.FirstName</h3>
+                <p>Welcome to the Activity Dashboard</p>
+            </div>
+            <div class="col-md-4"></div>
+        </div>
+
+    @* ///////// This is the end of the first row  *@
+
+    </div>
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Activity</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Time</th>
+                        <th scope="col">Creator</th>
+                        <th scope="col">Participants</th>
+                        <th scope="col">Action</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach( var game in @Model)
+                    {
+                        <tr>
+                            <td><a href="/game/@game.GameId">@game.Title</a></td>
+                            <td>@game.GameDate.ToString("MM/dd/yyyy")</td>
+                            <td>@game.Time.ToString("hh:mm tt")</td>
+                            <td>@game.Creator.FirstName</td>
+                            <td>@game.Participants.Count</td>
+            
+                    
+                            @if(game.Creator.UserId == ViewBag.user.UserId)
+                            {
+                                <td><a href="/delete/game/@game.GameId">Delete</a></td>
+
+                                <td><a href="/edit/game/@game.GameId">Edit</a></td>
+                            }
+                    
+                            else if(game.Participants.Any(a => a.UserId == ViewBag.user.UserId))
+                            {
+                                <td><a href="/leave/game/@game.GameId">Leave</a></td>
+                            }
+                    
+                            else
+                            {
+                                <td><a href="/join/game/@game.GameId">Join</a></td>
+                            }
+                    
+                        </tr>
+                    } 
+                </tbody>
+            </table>
+            <a href="/newGame"><button class="btn btn-primary">Add New Activity</button></a>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+
+   @*  ////////// This is the end of the second row *@
+</body>
+</html>

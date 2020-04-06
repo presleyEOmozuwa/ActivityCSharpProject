@@ -1,0 +1,69 @@
+@model Game
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab&display=swap" rel="stylesheet">
+    <title>UserInfo</title>
+@*  <style>
+        .formThree{
+            border: 2px solid lightgrey;
+            padding-top: 50px;
+            padding-right: 30px;
+            padding-left: 30px;
+
+            height: 500px;
+            border-radius:10px;
+        }
+        .contentNew > h3{
+            font-weight: lighter;
+        }
+    </style> *@
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-8 contentNew my-3">
+                <h3>Edit Your Activity</h3>
+                <p>See Below:</p>
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-6 formThree">
+                <form asp-action="UpdateGame"  asp-controller="Home" method="post"> 
+                    <div class="form-group">
+                        <label for="Title">Title</label>
+                        <input class="form-control" type="text" name="Title" value="@Model.Title">
+                        <span asp-validation-for="Title"></span>
+                    </div>   
+                    <div class="form-group">
+                        <label for="GameDate">GameDate</label>
+                        <input class="form-control" type="GameDate" name="GameDate" value="@Model.GameDate">
+                        <span asp-validation-for="GameDate"></span>
+                    </div>            
+                    
+                    <div class="form-group">
+                        <label for="Time">Time</label>
+                        <input class="form-control" type="Time" name="Time" value="@Model.Time">
+                        <span asp-validation-for="Time"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="Description">Description</label>
+                        <textarea class="form-control" name="Description" value="@Model.Description">@Model.Description</textarea>
+                        <span asp-validation-for="Description"></span>
+                    </div>
+                    <div>
+                        <button class="btn btn-primary" type="submit">Update</button>
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-4"></div>
+        </div> 
+    </div>
+</body>
+</html>
